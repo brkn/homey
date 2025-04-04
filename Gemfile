@@ -20,8 +20,12 @@ group :development, :test do
 end
 
 group :development do
-  gem "rubocop", "~> 1.75"
-  gem "rubocop-performance", "~> 1.25"
-  gem "rubocop-rails", "~> 2.31"
-  gem "rubocop-rspec", "~> 3.5"
+  gem "rubocop", "~> 1.75", require: false
+  gem "rubocop-performance", "~> 1.25", require: false
+  gem "rubocop-rails", "~> 2.31", require: false
+  gem "rubocop-rspec", "~> 3.5", require: false
+end
+
+group :test do
+  gem "rspec-rails", "~> 7.1"
 end

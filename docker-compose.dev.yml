@@ -1,0 +1,17 @@
+version: '3'
+services:
+  db:
+    image: postgres:15
+    ports:
+      - "5433:5432"
+    container_name: homey_postgres
+    volumes:
+      - homey_postgres_data:/var/lib/postgresql/data
+      - ./log/db/:/var/log/postgresql:rw
+    command: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+volumes:
+  homey_postgres_data:

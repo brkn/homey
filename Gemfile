@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-ruby '3.2.5'
+ruby "3.2.5"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.2"
@@ -34,6 +34,7 @@ group :development do
   gem "rubocop-performance", "~> 1.25", require: false
   gem "rubocop-rails", "~> 2.31", require: false
   gem "rubocop-rspec", "~> 3.5", require: false
+  gem "rubocop-rspec_rails", "~> 2.31", require: false
 end
 
 group :test do

@@ -1,12 +1,13 @@
 plugins:
   - rubocop-rails
   - rubocop-rspec
+  - rubocop-rspec_rails
   - rubocop-performance
 
 Style/Documentation:
   Enabled: false
 
-StringLiterals:
+Style/StringLiterals:
   EnforcedStyle: double_quotes
 
 Style/TrailingCommaInHashLiteral:

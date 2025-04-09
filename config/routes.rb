@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resource :session, only: [:new, :create]
 
-  resource :project, only: [:show]
+  resource :project, only: [:show, :update]
   resolve("Project") { [:project] }
 
   root to: "projects#show"

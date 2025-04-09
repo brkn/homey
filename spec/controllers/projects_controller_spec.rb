@@ -6,7 +6,7 @@ RSpec.describe ProjectsController do
   describe "GET #show" do
     render_views
 
-    let(:project) { Project.create!(name: "Test Project") }
+    let!(:project) { Project.create!(name: "Test Project") }
     let(:user_name) { "First commenter" }
 
     before do
@@ -35,6 +35,32 @@ RSpec.describe ProjectsController do
       expect(response.parsed_body.at_css(".comment-author").text).to include("First commenting user")
 
       expect(response.parsed_body.css(".timeline-item").length).to eq(3)
+    end
+  end
+
+  describe "PATCH #update" do
+    before do
+      session[:username] = "Test User"
+    end
+
+    let!(:project) { Project.create!(name: "Test Project") }
+
+    context "with valid state transition" do
+      it "changes project state to a valid state" do
+        patch :update, params: { project: { state: "in_progress" } }
+
+        expect(response).to have_http_status(:ok)
+        expect(project.state).to eq("in_progress")
+      end
+    end
+
+    context "with invalid state transition" do
+      it "does not change project state to an invalid state" do
+        patch :update, params: { project: { state: "done" } }
+
+        expect(response).to have_http_status(:bad_request)
+        expect(project.state).to eq("todo")
+      end
     end
   end
 end

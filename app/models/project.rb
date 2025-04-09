@@ -4,7 +4,11 @@ class Project < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :state_changes, dependent: :destroy
 
-  has_one :latest_state_change, -> { where.not(id: nil).order(created_at: :desc) }, class_name: "StateChange"
+  has_one :latest_state_change,
+          -> { where.not(id: nil).order(created_at: :desc) },
+          class_name: "StateChange",
+          dependent: :nullify,
+          inverse_of: :project
 
   def state
     return "todo" if latest_state_change.blank?

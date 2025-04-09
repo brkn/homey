@@ -1,2 +1,12 @@
-<h1>Sessions#new</h1>
-<p>Find me in app/views/sessions/new.html.erb</p>
+<h1>Hey Homey</h1>
+
+<% if @user.errors.any? %>
+  <% @user.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+
+<%= form_with model: @user, url: session_path do |f| %>
+  <%= f.text_field :name, placeholder: 'Enter your name', required: true, autofocus: true, autocomplete: 'off' %>
+  <%= f.submit 'Join project' %>
+<% end %>

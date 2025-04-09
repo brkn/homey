@@ -1,20 +1,14 @@
 # frozen_string_literal: true
 
 class User
-  def initialize(name:)
-    raise ArgumentError, "Name must be a non-empty string" unless valid_name?(name)
+  include ActiveModel::Attributes
+  include ActiveModel::AttributeAssignment
+  include ActiveModel::Validations
 
-    @name = name.strip
-  end
+  attribute :name, :string
+  validates :name, presence: true
 
-  attr_reader :name
-
-  private
-
-  def valid_name?(name)
-    return false unless name.is_a?(String)
-    return false if name.strip.empty?
-
-    true
+  def self.build_from_session(session)
+    new.tap { |user| user.assign_attributes(name: session[:username]) }
   end
 end

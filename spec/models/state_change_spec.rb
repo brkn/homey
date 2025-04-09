@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe StateChange do
-  let(:project) { Project.create(name: "Test Project") }
+  let(:project) { Project.create!(name: "Test Project") }
 
   it "is valid with both valid states" do
     state_change = described_class.new(

@@ -1,0 +1,27 @@
+<h1 id="project-name"><%= @project.name %></h1>
+
+<p id="project-state"><%= @project.state %></p>
+
+<ol id="timeline">
+  <% @timeline_items.each do |item| %>
+    <% if item.is_a?(Comment) %>
+      <li class="timeline-item comment">
+        <p class="comment-author"><%= item.author %></p>
+        <p class="comment-content"><%= item.content %></p>
+        <small><%= time_ago_in_words(item.created_at) %> ago</small>
+      </li>
+    <% elsif item.is_a?(StateChange) %>
+      <li class="timeline-item state-change">
+        <p class="state-change-content">
+          <p class="author"><%= item.author %></p>
+          <p class="content">
+            changed state from <em><%= item.from_state %></em> to <em><%= item.to_state %></em>
+          </p>
+        </p>
+        <small><%= time_ago_in_words(item.created_at) %> ago</small>
+      </li>
+    <% end %>
+  <% end %>
+</ol>
+
+<div id="new-comment-form">TODO: this will be a new comment form</div>

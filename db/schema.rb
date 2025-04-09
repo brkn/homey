@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_09_160413) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_09_160849) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -30,5 +30,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_09_160413) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "state_changes", force: :cascade do |t|
+    t.string "from_state", null: false
+    t.string "to_state", null: false
+    t.string "author", null: false
+    t.bigint "project_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_state_changes_on_project_id"
+  end
+
   add_foreign_key "comments", "projects"
+  add_foreign_key "state_changes", "projects"
 end

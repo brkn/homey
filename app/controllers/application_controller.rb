@@ -17,6 +17,6 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user
-    redirect_to root_url if current_user.nil?
+    redirect_to new_session_url if current_user.nil?
   end
 end

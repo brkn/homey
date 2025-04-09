@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
 
   before_action :authenticate_user
+  before_action :assign_project
 
   private
 
@@ -18,5 +19,9 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user
     redirect_to new_session_url if current_user.nil?
+  end
+
+  def assign_project
+    @project = Project.last
   end
 end

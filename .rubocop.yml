@@ -19,6 +19,8 @@ Style/TrailingCommaInArguments:
 
 Style/SymbolArray:
   Enabled: false
+Style/WordArray:
+  Enabled: false
 
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
@@ -28,6 +30,9 @@ RSpec/ImplicitBlockExpectation:
   Enabled: false
 RSpec/MultipleExpectations:
   Enabled: false
+
+RSpec/ExampleLength:
+  Max: 15
 
 Metrics/BlockLength:
   Exclude:

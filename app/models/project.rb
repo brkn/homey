@@ -7,4 +7,6 @@ class Project < ApplicationRecord
     done
     cancelled
   ].freeze
+
+  has_many :comments, dependent: :destroy
 end

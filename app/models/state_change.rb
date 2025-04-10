@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class StateChange < ApplicationRecord
+class StateChange < TimelineEntry
   VALID_TRANSITIONS = {
     "todo" => ["in_progress", "cancelled"],
     "in_progress" => ["done", "cancelled"],
@@ -9,8 +9,6 @@ class StateChange < ApplicationRecord
   }.freeze
 
   VALID_STATES = VALID_TRANSITIONS.keys.freeze
-
-  belongs_to :project
 
   validates :from_state, :to_state, inclusion: { in: VALID_STATES }
 

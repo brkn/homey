@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
   private
 
   def assign_timeline_items
-    @timeline_items = (@project.comments.to_a + @project.state_changes.to_a).sort_by(&:created_at)
+    @timeline_items = @project.timeline_entries.order(created_at: :asc)
   end
 
   def assign_new_comment

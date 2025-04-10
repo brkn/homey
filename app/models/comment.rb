@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-class Comment < ApplicationRecord
-  belongs_to :project
-
+class Comment < TimelineEntry
   validates :content, presence: true
-  validates :author, presence: true
 end

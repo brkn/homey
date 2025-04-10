@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_09_164526) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_10_064418) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -39,6 +39,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_09_164526) do
     t.index ["project_id"], name: "index_state_changes_on_project_id"
   end
 
+  create_table "timeline_entries", force: :cascade do |t|
+    t.string "type", null: false
+    t.bigint "project_id", null: false
+    t.string "author", null: false
+    t.text "content"
+    t.string "from_state"
+    t.string "to_state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_timeline_entries_on_project_id"
+  end
+
   add_foreign_key "comments", "projects"
   add_foreign_key "state_changes", "projects"
+  add_foreign_key "timeline_entries", "projects"
 end

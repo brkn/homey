@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 class Project < ApplicationRecord
+  has_many :timeline_entries, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :state_changes, dependent: :destroy
 
   has_one :latest_state_change,
-          -> { where.not(id: nil).order(created_at: :desc) },
-          class_name: "StateChange",
+          -> { where(type: "StateChange").where.not(id: nil).order(created_at: :desc) },
+          class_name: "TimelineEntry",
           dependent: :nullify,
           inverse_of: :project
 

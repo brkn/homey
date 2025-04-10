@@ -17,7 +17,9 @@
     <% if item.is_a?(Comment) %>
       <li class="timeline-item comment">
         <p class="comment-author"><%= item.author %></p>
-        <p class="comment-content"><%= item.content %></p>
+        <div class="comment-content">
+          <%= simple_format(item.content) %>
+        </div>
         <small><%= time_ago_in_words(item.created_at) %> ago</small>
       </li>
     <% elsif item.is_a?(StateChange) %>

@@ -2,9 +2,9 @@
 
 class CommentsController < ApplicationController
   def create
-    @comment = @project.comments.create(comment_params)
+    @comment = @project.comments.build(comment_params)
 
-    if @comment.persisted?
+    if @comment.save
       redirect_to project_path
     else
       redirect_to project_path, alert: @comment.errors.full_messages.to_sentence

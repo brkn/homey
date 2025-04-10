@@ -34,4 +34,7 @@
   <% end %>
 </ol>
 
-<div id="new-comment-form">TODO: this will be a new comment form</div>
+<%= form_with model: [@project, @new_comment], url: project_comments_path, id: "new-comment-form" do |f| %>
+  <%= f.text_area :content, required: true %>
+  <%= f.submit "Post Comment" %>
+<% end %>

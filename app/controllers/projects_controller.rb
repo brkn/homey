@@ -10,9 +10,15 @@ class ProjectsController < ApplicationController
     state_change = @project.change_state_to(new_state_param, author: current_user.name)
 
     if state_change.persisted?
-      head :ok
+      respond_to do |format|
+        format.html { redirect_to project_path }
+        format.json { head :ok }
+      end
     else
-      head :bad_request
+      respond_to do |format|
+        format.html { redirect_to project_path, alert: state_change.errors.full_messages.to_sentence }
+        format.json { head :bad_request }
+      end
     end
   end
 

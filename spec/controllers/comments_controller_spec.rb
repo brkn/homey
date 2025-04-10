@@ -5,14 +5,13 @@ require "rails_helper"
 RSpec.describe CommentsController do
   describe "POST #create" do
     let!(:project) { Project.create!(name: "Test Project") }
+    let(:comment) { Comment.last }
     let(:user_name) { "Commenting_user" }
     let(:valid_comment_params) { { comment: { content: "This is a test comment" } } }
 
     before do
       session[:username] = user_name
     end
-
-    let(:comment) { Comment.last }
 
     it "creates a comment associated with the current project and user" do
       expect do

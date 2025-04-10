@@ -2,6 +2,16 @@
 
 <p id="project-state"><%= @project.state %></p>
 
+<div id="state-transition-buttons">
+  <% StateChange::VALID_TRANSITIONS[@project.state].each do |new_state| %>
+    <%= button_to "Change to #{new_state.humanize}",
+                 project_path,
+                 method: :patch,
+                 params: { project: { state: new_state } },
+                 data: { state: new_state } %>
+  <% end %>
+</div>
+
 <ol id="timeline">
   <% @timeline_items.each do |item| %>
     <% if item.is_a?(Comment) %>

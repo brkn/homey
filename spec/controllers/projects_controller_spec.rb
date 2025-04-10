@@ -8,6 +8,12 @@ RSpec.describe ProjectsController do
 
     let!(:project) { Project.create!(name: "Test Project") }
     let(:user_name) { "First commenter" }
+    let(:transition_button_texts) do
+      response.parsed_body
+              .at_css("#state-transition-buttons")
+              .css("button")
+              .map(&:text)
+    end
 
     before do
       session[:username] = user_name
@@ -36,6 +42,13 @@ RSpec.describe ProjectsController do
 
       expect(response.parsed_body.css(".timeline-item").length).to eq(3)
     end
+
+    it "includes state transition buttons" do
+      get :show
+
+      expect(response.parsed_body.css("#state-transition-buttons")).to be_present
+      expect(transition_button_texts).to eq ["Change to Done", "Change to Cancelled"]
+    end
   end
 
   describe "PATCH #update" do
@@ -47,7 +60,7 @@ RSpec.describe ProjectsController do
 
     context "with valid state transition" do
       it "changes project state to a valid state" do
-        patch :update, params: { project: { state: "in_progress" } }
+        patch :update, params: { project: { state: "in_progress" }, format: :json }
 
         expect(response).to have_http_status(:ok)
         expect(project.state).to eq("in_progress")
@@ -56,7 +69,7 @@ RSpec.describe ProjectsController do
 
     context "with invalid state transition" do
       it "does not change project state to an invalid state" do
-        patch :update, params: { project: { state: "done" } }
+        patch :update, params: { project: { state: "done" }, format: :json }
 
         expect(response).to have_http_status(:bad_request)
         expect(project.state).to eq("todo")

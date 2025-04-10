@@ -1,0 +1,7 @@
+<li class="timeline-item comment">
+  <p class="comment-author"><%= comment.author %></p>
+  <div class="comment-content">
+    <%= simple_format(comment.content) %>
+  </div>
+  <small><%= time_ago_in_words(comment.created_at) %> ago</small>
+</li>

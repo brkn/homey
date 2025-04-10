@@ -14,25 +14,7 @@
 
 <ol id="timeline">
   <% @timeline_items.each do |item| %>
-    <% if item.is_a?(Comment) %>
-      <li class="timeline-item comment">
-        <p class="comment-author"><%= item.author %></p>
-        <div class="comment-content">
-          <%= simple_format(item.content) %>
-        </div>
-        <small><%= time_ago_in_words(item.created_at) %> ago</small>
-      </li>
-    <% elsif item.is_a?(StateChange) %>
-      <li class="timeline-item state-change">
-        <p class="state-change-content">
-          <p class="author"><%= item.author %></p>
-          <p class="content">
-            changed state from <em><%= item.from_state %></em> to <em><%= item.to_state %></em>
-          </p>
-        </p>
-        <small><%= time_ago_in_words(item.created_at) %> ago</small>
-      </li>
-    <% end %>
+    <%= render "timeline_item", item: item %>
   <% end %>
 </ol>
 

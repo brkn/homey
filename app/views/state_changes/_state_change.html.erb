@@ -1,0 +1,9 @@
+<li class="timeline-item state-change">
+  <p class="state-change-content">
+    <p class="author"><%= state_change.author %></p>
+    <p class="content">
+      changed state from <em><%= state_change.from_state %></em> to <em><%= state_change.to_state %></em>
+    </p>
+  </p>
+  <small><%= time_ago_in_words(state_change.created_at) %> ago</small>
+</li>

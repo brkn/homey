@@ -4,4 +4,6 @@ class TimelineEntry < ApplicationRecord
   belongs_to :project
 
   validates :author, presence: true
+
+  default_scope { order(created_at: :asc) }
 end

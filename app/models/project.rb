@@ -5,16 +5,8 @@ class Project < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :state_changes, dependent: :destroy
 
-  has_one :latest_state_change,
-          -> { where(type: "StateChange").where.not(id: nil).order(created_at: :desc) },
-          class_name: "TimelineEntry",
-          dependent: :nullify,
-          inverse_of: :project
-
   def state
-    return "todo" if latest_state_change.blank?
-
-    latest_state_change.to_state
+    state_changes.last&.to_state || "todo"
   end
 
   def change_state_to(new_state, author:)

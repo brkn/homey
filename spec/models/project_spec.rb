@@ -27,7 +27,7 @@ RSpec.describe Project do
         author: "Berkan",
       )
 
-      expect(project.reload.state).to eq("done")
+      expect(project.state).to eq("done")
     end
   end
 
@@ -39,7 +39,7 @@ RSpec.describe Project do
 
       expect(result).to be_a(StateChange)
       expect(result).to be_persisted
-      expect(project.reload.state).to eq("in_progress")
+      expect(project.state).to eq("in_progress")
     end
 
     it "returns state change with errors for invalid transitions" do
@@ -47,7 +47,7 @@ RSpec.describe Project do
 
       expect(result).to be_a(StateChange)
       expect(result.errors[:to_state]).to be_present
-      expect(project.state).to eq("todo")
+      expect(project.reload.state).to eq("todo")
     end
   end
 
@@ -56,7 +56,7 @@ RSpec.describe Project do
 
     it "changes state for valid transitions" do
       project.change_state_to!(:in_progress, author: "brkn")
-      expect(project.reload.state).to eq("in_progress")
+      expect(project.state).to eq("in_progress")
     end
 
     it "raises error for invalid transitions" do

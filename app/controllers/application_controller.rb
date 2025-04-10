@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def assign_project
-    @project = Project.last
+    # TODO: remove :timeline_entries when pagination is introduced
+    @project = Project.includes(:timeline_entries).last
   end
 end

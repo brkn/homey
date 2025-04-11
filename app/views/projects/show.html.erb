@@ -1,3 +1,5 @@
+<%= turbo_stream_from  @project %>
+
 <h1 id="project-name"><%= @project.name %></h1>
 
 <p id="project-state"><%= @project.state %></p>
@@ -12,9 +14,11 @@
   <% end %>
 </div>
 
-<ol id="timeline">
-  <% @timeline_items.each do |item| %>
-    <%= render item %>
+<ol id="timeline_entries">
+  <%= turbo_frame_tag "timeline_entries" do %>
+    <% @timeline_items.each do |item| %>
+      <%= render item %>
+    <% end %>
   <% end %>
 </ol>
 

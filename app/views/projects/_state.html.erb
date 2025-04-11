@@ -1,5 +1,6 @@
 <%= turbo_frame_tag "project-state-container" do %>
-  <p id="project-state"><%= project.state %></p>
+  <%# TODO: disappering flash here: 'State updated!' %>
+  <p id="project-current-state"><%= project.state %></p>
 
   <div id="state-transition-buttons">
     <% StateChange::VALID_TRANSITIONS[project.state].each do |new_state| %>

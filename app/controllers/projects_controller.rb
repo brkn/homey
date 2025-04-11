@@ -14,12 +14,12 @@ class ProjectsController < ApplicationController
 
       respond_to do |format|
         format.html { redirect_to project_path }
-        format.json { head :ok }
+        format.turbo_stream { head :ok }
       end
     else
       respond_to do |format|
         format.html { redirect_to project_path, alert: state_change.errors.full_messages.to_sentence }
-        format.json { head :bad_request }
+        format.turbo_stream { head :bad_request }
       end
     end
   end
@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
   private
 
   def broadcast_project_state
-    Turbo::StreamsChannel.broadcast_update_to(
+    Turbo::StreamsChannel.broadcast_replace_to(
       @project,
       target: "project-state-container",
       partial: "projects/state",

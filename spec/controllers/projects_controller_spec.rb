@@ -29,7 +29,7 @@ RSpec.describe ProjectsController do
       expect(response).to have_http_status(:ok)
 
       expect(response.parsed_body.at_css("#project_name").text).to eq "Test Project"
-      expect(response.parsed_body.at_css("#project-state").text).to eq "in_progress"
+      expect(response.parsed_body.at_css("#project-current-state").text).to eq "in_progress"
       expect(response.parsed_body.at_css("#timeline_entries_container")).to be_present
       expect(response.parsed_body.at_css("#new-comment-form")).to be_present
     end
@@ -37,10 +37,9 @@ RSpec.describe ProjectsController do
     it "renders timeline items" do
       get :show
 
-      expect(response.parsed_body.at_css(".comment-content").text).to include("First comment")
-      expect(response.parsed_body.at_css(".comment-author").text).to include("First commenting user")
-
       expect(response.parsed_body.css(".timeline-item").length).to eq(3)
+      expect(response.parsed_body.at_css(".comment > .content").text).to include("First comment")
+      expect(response.parsed_body.at_css(".comment > .author").text).to include("First commenting user")
     end
 
     it "includes state transition buttons" do
@@ -60,7 +59,7 @@ RSpec.describe ProjectsController do
 
     context "with valid state transition" do
       it "changes project state to a valid state" do
-        patch :update, params: { project: { state: "in_progress" }, format: :json }
+        patch :update, params: { project: { state: "in_progress" }, format: :turbo_stream }
 
         expect(response).to have_http_status(:ok)
         expect(project.state).to eq("in_progress")
@@ -69,7 +68,7 @@ RSpec.describe ProjectsController do
 
     context "with invalid state transition" do
       it "does not change project state to an invalid state" do
-        patch :update, params: { project: { state: "done" }, format: :json }
+        patch :update, params: { project: { state: "done" }, format: :turbo_stream }
 
         expect(response).to have_http_status(:bad_request)
         expect(project.state).to eq("todo")

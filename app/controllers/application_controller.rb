@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user
   before_action :assign_project
 
+  helper_method :current_user
+
   private
 
   def current_user

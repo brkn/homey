@@ -17,6 +17,7 @@
   url: project_comments_path,
   id: "new-comment-form",
   autocomplete: "off" do |f| %>
+  <p class="author"><%= current_user.name %></p>
   <%= f.text_area :content, required: true %>
   <%= f.submit "Post Comment" %>
 <% end %>

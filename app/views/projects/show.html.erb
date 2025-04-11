@@ -12,7 +12,11 @@
   <% end %>
 </ol>
 
-<%= form_with model: [@project, @new_comment], url: project_comments_path, id: "new-comment-form" do |f| %>
+<%= form_with model: [@project, @new_comment],
+  data: { controller: "new-comment", action: "turbo:submit-end->new-comment#reset" },
+  url: project_comments_path,
+  id: "new-comment-form",
+  autocomplete: "off" do |f| %>
   <%= f.text_area :content, required: true %>
   <%= f.submit "Post Comment" %>
 <% end %>

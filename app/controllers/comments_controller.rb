@@ -5,7 +5,10 @@ class CommentsController < ApplicationController
     @comment = @project.comments.build(comment_params)
 
     if @comment.save
-      redirect_to project_path
+      respond_to do |format|
+        format.html { redirect_to project_path }
+        format.turbo_stream { head :ok }
+      end
     else
       redirect_to project_path, alert: @comment.errors.full_messages.to_sentence
     end

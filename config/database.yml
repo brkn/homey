@@ -19,6 +19,5 @@ test:
 
 production:
   <<: *default
-  database: homey_production
-  username: homey
-  password: <%= ENV["HOMEY_DATABASE_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"] %>
+

@@ -1,7 +1,5 @@
 <%= turbo_stream_from  @project %>
 
-<h1 id="project_name"><%= @project.name %></h1>
-
 <%= render "projects/state", project: @project %>
 
 <ol id="timeline_entries_container">

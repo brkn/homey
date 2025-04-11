@@ -1,7 +1,9 @@
+<%# TODO: disappering flash here: 'State updated!' %>
 <%= turbo_frame_tag "project-state-container" do %>
-  <%# TODO: disappering flash here: 'State updated!' %>
-  <p id="project-current-state"><%= project.state %></p>
-
+  <div>
+    <h1 id="project_name"><%= project.name %></h1>
+    <p id="project-current-state"><%= project.state %></p>
+  </div>
   <div id="state-transition-buttons">
     <% StateChange::VALID_TRANSITIONS[project.state].each do |new_state| %>
       <%= button_to "Change to #{new_state.humanize}",

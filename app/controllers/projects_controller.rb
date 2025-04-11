@@ -10,6 +10,8 @@ class ProjectsController < ApplicationController
     state_change = @project.change_state_to(new_state_param, author: current_user.name)
 
     if state_change.persisted?
+      broadcast_project_state
+
       respond_to do |format|
         format.html { redirect_to project_path }
         format.json { head :ok }
@@ -23,6 +25,15 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def broadcast_project_state
+    Turbo::StreamsChannel.broadcast_update_to(
+      @project,
+      target: "project-state-container",
+      partial: "projects/state",
+      locals: { project: @project },
+    )
+  end
 
   def assign_timeline_items
     @timeline_items = @project.timeline_entries.order(created_at: :asc)

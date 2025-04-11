@@ -28,9 +28,9 @@ RSpec.describe ProjectsController do
 
       expect(response).to have_http_status(:ok)
 
-      expect(response.parsed_body.at_css("#project-name").text).to eq "Test Project"
+      expect(response.parsed_body.at_css("#project_name").text).to eq "Test Project"
       expect(response.parsed_body.at_css("#project-state").text).to eq "in_progress"
-      expect(response.parsed_body.at_css("#timeline")).to be_present
+      expect(response.parsed_body.at_css("#timeline_entries_container")).to be_present
       expect(response.parsed_body.at_css("#new-comment-form")).to be_present
     end
 

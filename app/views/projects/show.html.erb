@@ -1,20 +1,10 @@
 <%= turbo_stream_from  @project %>
 
-<h1 id="project-name"><%= @project.name %></h1>
+<h1 id="project_name"><%= @project.name %></h1>
 
-<p id="project-state"><%= @project.state %></p>
+<%= render "projects/state", project: @project %>
 
-<div id="state-transition-buttons">
-  <% StateChange::VALID_TRANSITIONS[@project.state].each do |new_state| %>
-    <%= button_to "Change to #{new_state.humanize}",
-                 project_path,
-                 method: :patch,
-                 params: { project: { state: new_state } },
-                 data: { state: new_state } %>
-  <% end %>
-</div>
-
-<ol id="timeline_entries">
+<ol id="timeline_entries_container">
   <%= turbo_frame_tag "timeline_entries" do %>
     <% @timeline_items.each do |item| %>
       <%= render item %>
